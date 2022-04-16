@@ -1,22 +1,24 @@
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { LIST } from '../../data/fake';
-
-type Character = {
-	name: string;
-	image: string;
-	gender?: string;
-	species?: string;
-	type?: string;
-	location: {
-		name: string;
-	};
-};
+import { Character, LastSeenCharacter } from '../../interfaces/character';
+import { lastSeenCharacters } from '../../state/character';
 
 export const CharacterProfile = () => {
+	const [, setLastSeenCharacters] = useRecoilState(lastSeenCharacters)
+
 	const { characterId } = useParams();
 	const character: Character = LIST.characters.results.filter(character => character.id === characterId)[0];
+
+	useEffect(() => {
+		if (characterId && character.name) {
+			const newCharacter: LastSeenCharacter = { id: characterId, name: character.name }
+			setLastSeenCharacters(list => ([newCharacter, ...list.filter(c => c.id !== characterId).slice(- 9)]))
+		}
+	}, [character, characterId, setLastSeenCharacters]
+	)
 	if (!character) return <Box>Character not found.</Box>;
 
 	return (

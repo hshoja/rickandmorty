@@ -5,22 +5,12 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { CharacterCardType, Status } from '../../interfaces/character';
 import CharacterStatus from './CharacterStatus';
 
-export enum Status {
-	ALIVE = 'Alive',
-	DEAD = 'Dead',
-	UNKNOWN = 'unknown',
-}
 
-export type CharacterType = {
-	id: string;
-	name: string;
-	image: string;
-	status: string;
-};
 
-export const CharacterCard = ({ id, name, image, status }: CharacterType) => {
+export const CharacterCard = ({ id, name, image, status }: CharacterCardType) => {
 	return (
 		<Card sx={{ minWidth: 250 }}>
 			<CardMedia component="img" height="140" image={image} alt={name} />

@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import React from 'react';
-import { Status } from '.';
+import { Status } from '../../interfaces/character';
 
 type Props = {
 	status: Status;
