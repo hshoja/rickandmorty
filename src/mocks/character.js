@@ -57,4 +57,35 @@ export const characterNotFoundMock = [
 	},
 ];
 
+export const resultsTrainMock = {
+	characters: {
+		info: { count: 3, __typename: 'Info' },
+		results: [
+			{
+				id: '632',
+				name: 'Train Cop',
+				image: 'https://rickandmortyapi.com/api/character/avatar/632.jpeg',
+				status: 'Dead',
+				__typename: 'Character',
+			},
+			{
+				id: '633',
+				name: 'Train Cops',
+				image: 'https://rickandmortyapi.com/api/character/avatar/633.jpeg',
+				status: 'Alive',
+				__typename: 'Character',
+			},
+			{
+				id: '634',
+				name: 'Train Cops Instructor',
+				image: 'https://rickandmortyapi.com/api/character/avatar/634.jpeg',
+				status: 'Dead',
+				__typename: 'Character',
+			},
+		],
+		__typename: 'Characters',
+	},
+};
+
 export const MOCKS = { characterMock, characterError, characterNotFoundMock };
+export const CYPRESS_MOCKS = { resultsTrainMock };

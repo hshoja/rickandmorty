@@ -10,7 +10,7 @@ import CharacterStatus from './CharacterStatus';
 
 export const CharacterCard = ({ id, name, image, status }: CharacterCardType) => {
 	return (
-		<Card sx={{ minWidth: 250 }}>
+		<Card sx={{ minWidth: 250 }} className="character">
 			<CardMedia component="img" height="140" image={image} alt={name} />
 			<CardContent>
 				<Box display="flex" flexDirection="row" alignItems="center" justifyContent={'space-between'}>

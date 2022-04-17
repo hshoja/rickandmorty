@@ -76,6 +76,7 @@ export const SearchBar = (props: Props) => {
 							<SearchIcon />
 						</SearchIconWrapper>
 						<StyledInputBase
+							id="search-input"
 							placeholder="Search…"
 							value={search}
 							onKeyDown={handleEnter}
