@@ -7,9 +7,10 @@ import { alpha, styled } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { loadingState } from '../../state/global';
+import { Link } from '../shared';
 
 type Props = {};
 
@@ -68,7 +69,7 @@ export const SearchBar = (props: Props) => {
 			<AppBar position="fixed">
 				<Toolbar>
 					<Link to="/">
-						<Typography variant="h6">Rick and Morty</Typography>
+						<Typography variant="h5">Rick and Morty</Typography>
 					</Link>
 					<Search>
 						<SearchIconWrapper>
