@@ -31,7 +31,7 @@ export const GET_CHARACTERS_BY_NAME = gql`
 	}
 `;
 export const GET_CHARACTER_BY_IDS = gql`
-	query ($ids: [ID!]!) {
+	query charactersByIds($ids: [ID!]!) {
 		charactersByIds(ids: $ids) {
 			id
 			name

@@ -8,7 +8,7 @@ import { CharacterItem } from '../Character';
 export const Footer = () => {
 	const results = useRecoilValue(lastSeenCharactersState);
 	return (
-		<Box display={'flex'} flexWrap={'wrap'} gap={2} component="footer" padding={2} bgcolor={'lightblue'}>
+		<Box display={'flex'} flexWrap={'wrap'} gap={2} component="footer" padding={2} bgcolor={'lightblue'} role='footer'>
 			{results.map(({ id, name }: LastSeenCharacter) => (
 				<CharacterItem name={name} id={id} key={id} />
 			))}
