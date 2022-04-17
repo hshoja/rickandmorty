@@ -18,15 +18,16 @@ export const CharacterProfile = () => {
 	const { loading, error, data } = useQuery<API_RESPONSE>(GET_CHARACTER_BY_IDS, {
 		variables: { ids: [characterId] },
 		onCompleted: data => {
-			setLastSeenCharacters(data.charactersByIds[0]);
-		},
+			if (data?.charactersByIds?.length) {
+				setLastSeenCharacters(data.charactersByIds[0]);
+			}
+		}
 	});
 
 	useLoading(loading);
-
-	const character = data?.charactersByIds[0];
+	const character = data?.charactersByIds?.length && data.charactersByIds[0];
 	if (error) return <>`Error! ${error.message}`</>;
-	if (!character) return <Box>Character not found.</Box>;
+	if (!character) return <Box>Character not found!</Box>;
 
 	return (
 		<Box display={'flex'} justifyContent={'center'} marginY={5}>
