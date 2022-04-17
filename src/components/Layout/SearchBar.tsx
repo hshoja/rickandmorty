@@ -1,12 +1,15 @@
-import React from 'react';
+import SearchIcon from '@mui/icons-material/Search';
+import { LinearProgress } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import InputBase from '@mui/material/InputBase';
+import { alpha, styled } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import SearchIcon from '@mui/icons-material/Search';
-import { styled, alpha } from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { loadingState } from '../../state/global';
 
 type Props = {};
 
@@ -58,11 +61,13 @@ export const SearchBar = (props: Props) => {
 			navigate(`/search?${search}`);
 		}
 	};
+
+	const loading = useRecoilValue(loadingState)
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="fixed">
 				<Toolbar>
-					<Typography variant="h6">Ricky and Morty</Typography>
+					<Typography variant="h6">Rick and Morty</Typography>
 					<Search>
 						<SearchIconWrapper>
 							<SearchIcon />
@@ -76,6 +81,11 @@ export const SearchBar = (props: Props) => {
 						/>
 					</Search>
 				</Toolbar>
+				{loading && (
+					<Box sx={{ width: '100%' }}>
+						<LinearProgress />
+					</Box>
+				)}
 			</AppBar>
 		</Box>
 	);
