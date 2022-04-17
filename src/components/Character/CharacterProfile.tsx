@@ -1,24 +1,30 @@
+import React from 'react';
+import { useQuery } from '@apollo/client';
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
-import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { LIST } from '../../data/fake';
-import { Character, LastSeenCharacter } from '../../interfaces/character';
-import { lastSeenCharacters } from '../../state/character';
+import { useSetRecoilState } from 'recoil';
+import { GET_CHARACTER_BY_IDS } from '../../graphql/queries';
+import { Character } from '../../interfaces/character';
+import { lastSeenCharactersState } from '../../state/character';
+import { useLoading } from '../../utils/hooks';
+
+type API_RESPONSE = {
+	charactersByIds: Character[]
+}
 
 export const CharacterProfile = () => {
-	const [, setLastSeenCharacters] = useRecoilState(lastSeenCharacters)
-
+	const setLastSeenCharacters = useSetRecoilState(lastSeenCharactersState)
 	const { characterId } = useParams();
-	const character: Character = LIST.characters.results.filter(character => character.id === characterId)[0];
-
-	useEffect(() => {
-		if (characterId && character.name) {
-			const newCharacter: LastSeenCharacter = { id: characterId, name: character.name }
-			setLastSeenCharacters(list => ([newCharacter, ...list.filter(c => c.id !== characterId).slice(- 9)]))
+	const { loading, error, data } = useQuery<API_RESPONSE>(GET_CHARACTER_BY_IDS, {
+		variables: { ids: [characterId] }, onCompleted: (data) => {
+			setLastSeenCharacters(data.charactersByIds[0])
 		}
-	}, [character, characterId, setLastSeenCharacters]
-	)
+	})
+
+	useLoading(loading)
+
+	const character = data?.charactersByIds[0];
+	if (error) return <>`Error! ${error.message}`</>;
 	if (!character) return <Box>Character not found.</Box>;
 
 	return (

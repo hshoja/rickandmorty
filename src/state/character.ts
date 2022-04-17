@@ -1,7 +1,16 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 import { LastSeenCharacter } from "../interfaces/character";
 
-export const lastSeenCharacters = atom<LastSeenCharacter[]>({
+const lastSeenCharacters = atom<LastSeenCharacter[]>({
   key: 'LastSeenCharacters',
   default: [],
 });
+
+export const lastSeenCharactersState = selector({
+  key: 'addLastSeenCharacter',
+  get: ({ get }) => get(lastSeenCharacters),
+  set: ({ set, get }, newValue: any) => {
+    const lastNineSeen = get(lastSeenCharacters).slice(-9);
+    set<LastSeenCharacter[]>(lastSeenCharacters, [newValue, ...lastNineSeen]);
+  }
+})
