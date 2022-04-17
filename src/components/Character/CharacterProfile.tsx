@@ -9,19 +9,20 @@ import { lastSeenCharactersState } from '../../state/character';
 import { useLoading } from '../../utils/hooks';
 
 type API_RESPONSE = {
-	charactersByIds: Character[]
-}
+	charactersByIds: Character[];
+};
 
 export const CharacterProfile = () => {
-	const setLastSeenCharacters = useSetRecoilState(lastSeenCharactersState)
+	const setLastSeenCharacters = useSetRecoilState(lastSeenCharactersState);
 	const { characterId } = useParams();
 	const { loading, error, data } = useQuery<API_RESPONSE>(GET_CHARACTER_BY_IDS, {
-		variables: { ids: [characterId] }, onCompleted: (data) => {
-			setLastSeenCharacters(data.charactersByIds[0])
-		}
-	})
+		variables: { ids: [characterId] },
+		onCompleted: data => {
+			setLastSeenCharacters(data.charactersByIds[0]);
+		},
+	});
 
-	useLoading(loading)
+	useLoading(loading);
 
 	const character = data?.charactersByIds[0];
 	if (error) return <>`Error! ${error.message}`</>;

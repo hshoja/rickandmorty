@@ -1,31 +1,50 @@
 import { useQuery } from '@apollo/client';
 import { Box } from '@mui/material';
 import React from 'react';
-import { Outlet, useSearchParams } from 'react-router-dom';
+import { Outlet, useParams, useSearchParams } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 import { GET_CHARACTERS, GET_CHARACTERS_BY_NAME } from '../../graphql/queries';
 import { CharacterCardType } from '../../interfaces/character';
+import { characterPageState } from '../../state/character';
 import { useLoading } from '../../utils/hooks';
-import Pagination from '../Pagination/Pagination';
 import CharacterCard from './CharacterCard';
+import CharacterPagination, { CHARACTERS_PER_PAGE } from './CharacterPagination';
 
 type API_RESPONSE = {
 	characters: {
-		results: CharacterCardType[]
-	}
-}
+		info: {
+			count: number;
+		};
+		results: CharacterCardType[];
+	};
+};
 
 export const CharacterList = () => {
 	let [searchParams] = useSearchParams();
 	const search = searchParams.toString().replace('=', '');
 	const isSearch = search.length > 0;
+
+	const { pageNumber } = useParams();
+	const page = pageNumber ? parseInt(pageNumber) : 1;
+	const setPageCount = useSetRecoilState(characterPageState);
+
 	const query = isSearch ? GET_CHARACTERS_BY_NAME : GET_CHARACTERS;
-	const variables = isSearch ? {
-		page: 1, filter: { name: search }
-	} : { page: 1 };
+	const variables = isSearch
+		? {
+				page,
+				filter: { name: search },
+		  }
+		: { page };
 
-	const { loading, error, data } = useQuery<API_RESPONSE, { page: number }>(query, { variables })
+	const { loading, error, data } = useQuery<API_RESPONSE, { page: number }>(query, {
+		variables,
+		onCompleted: () => {
+			if (data?.characters) setPageCount(Math.ceil(data.characters.info.count / CHARACTERS_PER_PAGE));
+			else setPageCount(1);
+		},
+	});
 
-	useLoading(loading)
+	useLoading(loading);
 
 	if (error) return <>`Error! ${error.message}`</>;
 	if (!data?.characters) return <>'No results found'</>;
@@ -44,7 +63,7 @@ export const CharacterList = () => {
 				</Box>
 			</Box>
 			<Box display={'flex'} justifyContent={'center'} paddingY={2}>
-				<Pagination />
+				<CharacterPagination />
 			</Box>
 		</Box>
 	);

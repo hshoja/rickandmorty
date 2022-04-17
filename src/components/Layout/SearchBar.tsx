@@ -7,7 +7,7 @@ import { alpha, styled } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { loadingState } from '../../state/global';
 
@@ -62,12 +62,14 @@ export const SearchBar = (props: Props) => {
 		}
 	};
 
-	const loading = useRecoilValue(loadingState)
+	const loading = useRecoilValue(loadingState);
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="fixed">
 				<Toolbar>
-					<Typography variant="h6">Rick and Morty</Typography>
+					<Link to="/">
+						<Typography variant="h6">Rick and Morty</Typography>
+					</Link>
 					<Search>
 						<SearchIconWrapper>
 							<SearchIcon />

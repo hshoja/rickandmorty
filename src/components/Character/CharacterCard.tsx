@@ -8,8 +8,6 @@ import { Link } from 'react-router-dom';
 import { CharacterCardType, Status } from '../../interfaces/character';
 import CharacterStatus from './CharacterStatus';
 
-
-
 export const CharacterCard = ({ id, name, image, status }: CharacterCardType) => {
 	return (
 		<Card sx={{ minWidth: 250 }}>
