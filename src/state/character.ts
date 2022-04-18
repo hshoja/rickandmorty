@@ -9,9 +9,9 @@ const lastSeenCharacters = atom<LastSeenCharacter[]>({
 export const lastSeenCharactersState = selector({
 	key: 'addLastSeenCharacter',
 	get: ({ get }) => get(lastSeenCharacters),
-	set: ({ set, get }, newValue: any) => {
-		const lastNineSeen = get(lastSeenCharacters).slice(-9);
-		set<LastSeenCharacter[]>(lastSeenCharacters, [newValue, ...lastNineSeen]);
+	set: ({ set, get }, { id, name }: any) => {
+		const lastNineSeen = get(lastSeenCharacters).filter(c => c.name !== name).slice(0, 9);
+		set<LastSeenCharacter[]>(lastSeenCharacters, [{ id, name }, ...lastNineSeen]);
 	},
 });
 
