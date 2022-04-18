@@ -13,8 +13,9 @@ type API_RESPONSE = {
 export const useCharacter = () => {
 	const setLastSeenCharacters = useSetRecoilState(lastSeenCharactersState);
 	const { characterId } = useParams();
+	const id = characterId?.replace(/[^0-9]/g, '');
 	const { loading, error, data } = useQuery<API_RESPONSE>(GET_CHARACTER_BY_IDS, {
-		variables: { ids: [characterId] },
+		variables: { ids: [id] },
 		onCompleted: data => {
 			if (data?.charactersByIds?.length) {
 				setLastSeenCharacters(data.charactersByIds[0]);

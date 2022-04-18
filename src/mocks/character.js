@@ -5,7 +5,7 @@ export const characterMock = [
 		request: {
 			query: GET_CHARACTER_BY_IDS,
 			variables: {
-				ids: [1],
+				ids: ['1'],
 			},
 		},
 		result: {
@@ -34,7 +34,7 @@ export const characterError = [
 		request: {
 			query: GET_CHARACTER_BY_IDS,
 			variables: {
-				ids: [1],
+				ids: ['1'],
 			},
 		},
 		error: new Error('An error occurred'),
@@ -46,7 +46,7 @@ export const characterNotFoundMock = [
 		request: {
 			query: GET_CHARACTER_BY_IDS,
 			variables: {
-				ids: [1],
+				ids: ['1'],
 			},
 		},
 		result: {

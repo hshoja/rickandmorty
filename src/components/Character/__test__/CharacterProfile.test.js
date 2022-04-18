@@ -9,7 +9,7 @@ import Footer from '../../Layout/Footer';
 jest.mock('react-router-dom', () => ({
 	...jest.requireActual('react-router-dom'),
 	useParams: () => ({
-		characterId: 1,
+		characterId: '1',
 	}),
 }));
 
