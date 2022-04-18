@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet'
 import { useCharacter } from '../../graphql/hooks';
 
 export const CharacterProfile = () => {
@@ -10,6 +11,9 @@ export const CharacterProfile = () => {
 
 	return (
 		<Box display={'flex'} justifyContent={'center'} marginY={5}>
+			<Helmet>
+				<title>{character.name}</title>
+			</Helmet>
 			<Card sx={{ minWidth: 400 }}>
 				<CardMedia component="img" height="300" image={character.image} alt={character.name} />
 				<CardContent>
