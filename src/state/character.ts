@@ -2,7 +2,7 @@ import { atom, selector } from 'recoil';
 import { LastSeenCharacter } from '../interfaces/character';
 
 const lastSeenCharacters = atom<LastSeenCharacter[]>({
-	key: 'LastSeenCharacters',
+	key: 'lastSeenCharacters',
 	default: [],
 });
 

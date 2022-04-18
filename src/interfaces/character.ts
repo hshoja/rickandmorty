@@ -11,7 +11,7 @@ export type Character = {
 	status: string;
 	gender: string;
 	species: string;
-	type: string;
+	type: Status;
 	location: {
 		name: string;
 	};
