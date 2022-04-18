@@ -1,31 +1,10 @@
 import React from 'react';
-import { useQuery } from '@apollo/client';
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
-import { Link, useParams } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
-import { GET_CHARACTER_BY_IDS } from '../../graphql/queries';
-import { Character } from '../../interfaces/character';
-import { lastSeenCharactersState } from '../../state/character';
-import { useLoading } from '../../utils/hooks';
-
-type API_RESPONSE = {
-	charactersByIds: Character[];
-};
+import { Link } from 'react-router-dom';
+import { useCharacter } from '../../graphql/hooks';
 
 export const CharacterProfile = () => {
-	const setLastSeenCharacters = useSetRecoilState(lastSeenCharactersState);
-	const { characterId } = useParams();
-	const { loading, error, data } = useQuery<API_RESPONSE>(GET_CHARACTER_BY_IDS, {
-		variables: { ids: [characterId] },
-		onCompleted: data => {
-			if (data?.charactersByIds?.length) {
-				setLastSeenCharacters(data.charactersByIds[0]);
-			}
-		}
-	});
-
-	useLoading(loading);
-	const character = data?.charactersByIds?.length && data.charactersByIds[0];
+	const { error, character } = useCharacter();
 	if (error) return <>`Error! ${error.message}`</>;
 	if (!character) return <Box>Character not found!</Box>;
 

@@ -2,12 +2,11 @@ import { styled } from '@mui/material';
 import { Link as RouterLink, LinkProps } from 'react-router-dom';
 
 export const Link = (props: LinkProps) => {
-  return (
-    <StyledLink {...props} />
-  );
+	return <StyledLink {...props} />;
 };
 
-const StyledLink = styled(RouterLink)(({ theme }) => (`
+const StyledLink = styled(RouterLink)(
+	({ theme }) => `
   text-decoration: none;
   position: relative;
   color: ${theme.palette.text.primary};
@@ -29,4 +28,4 @@ const StyledLink = styled(RouterLink)(({ theme }) => (`
     transform: scaleX(1);
   }
 `
-));
+);
