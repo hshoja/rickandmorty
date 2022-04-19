@@ -55,7 +55,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export const SearchBar = (props: Props) => {
-	const [search, setSearch] = React.useState<string | undefined>();
+	const [search, setSearch] = React.useState<string>('');
 	const navigate = useNavigate();
 	const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === 'Enter' && search !== null && search !== undefined) {
