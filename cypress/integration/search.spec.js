@@ -36,7 +36,7 @@ describe('test search functionality', () => {
 		});
 	});
 
-	it.only('should see not found when there is no items when search', () => {
+	it('should see not found when there is no items when search', () => {
 		cy.intercept('POST', URL, req => {
 			if (req.body.operationName === 'characters') {
 				req.reply({

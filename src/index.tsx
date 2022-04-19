@@ -7,6 +7,8 @@ import { RecoilRoot } from 'recoil';
 const client = new ApolloClient({
 	uri: 'https://rickandmortyapi.com/graphql',
 	cache: new InMemoryCache(),
+	name: 'RickAndMorty',
+	version: '1.0'
 });
 
 ReactDOM.render(
